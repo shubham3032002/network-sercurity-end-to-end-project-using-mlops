@@ -16,6 +16,9 @@ TEST_FILE_NAME:str='test.csv'
 
 SCHEMA_FILE_PATH=os.path.join('data_schema',"schema.yaml")
 
+SAVED_MODEL_DIR =os.path.join("save_models")
+MODEL_FILE_NAME='model.pkl'
+
 
 """ Data ingestion releted constant start with DATA Ingestion Var name"""
 
@@ -57,6 +60,16 @@ DATA_TRANSFORMATION_TEST_FILE_PATH: str = "test.npy"
 
 
 
+"""  model trainer related constant start with mode trainner vae name"""
+
+MODEL_TRAINER_MODEL_DIR_NAME:str="model_trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR:str="trained_model"
+MODEL_TRAINER_TRAINED_MODEL_NAME:str="model.pkl"
+MODEL_TRAINER_EXPECTED_SCORE:float =0.6
+MODEL_TRAINER_OVER_FIITING_UNDER_FITTING_THRESHOLD:float=0.05
+
+
+TRAINING_BUCKET_NAME ="networktestsecurity"
 
 
 

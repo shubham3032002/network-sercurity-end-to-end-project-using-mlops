@@ -6,4 +6,9 @@ certifi
 scikit-learn
 dill
 pyaml
+mlflow
+xgboost
+dagshub
+fastapi
+unicorn
 -e .

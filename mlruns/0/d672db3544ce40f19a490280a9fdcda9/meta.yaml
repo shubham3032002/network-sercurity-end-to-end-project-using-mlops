@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/DATA%20SCIENCE/ML%20project/network%20project/mlruns/0/d672db3544ce40f19a490280a9fdcda9/artifacts
+end_time: 1738257679306
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d672db3544ce40f19a490280a9fdcda9
+run_name: likeable-bat-782
+run_uuid: d672db3544ce40f19a490280a9fdcda9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1738257642856
+status: 3
+tags: []
+user_id: shubh
