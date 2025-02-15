@@ -62,10 +62,10 @@ Access the API at http://localhost:8000 to interact with the model.
 #### 🎯 Model Accuracy
 Model accuracy measures how well the system detects phishing websites.
 
-Accuracy: Percentage of correct predictions.(.990)
-Precision: Correct phishing predictions out of all predicted phishing.(0.99)
-Recall: Correct phishing predictions out of actual phishing sites.(0.99)
-F1-Score: Balance between precision and recall. (0.99)
+- Accuracy: Percentage of correct predictions.(.990)
+- Precision: Correct phishing predictions out of all predicted phishing.(0.99)
+- Recall: Correct phishing predictions out of actual phishing sites.(0.99)
+- F1-Score: Balance between precision and recall. (0.99)
 ####  Streamlit UI 🎮
 Start the Streamlit application for an interactive user interface:
 
@@ -79,8 +79,8 @@ This will open a dashboard where you can input URLs for phishing detection.
 Interactive Features:
 
 Live Predictions 🌐: Enter a website URL to predict whether it’s phishing or not.
-Model Comparison 📊: View metrics for different model versions.
-Model Performance Graphs 📉: Visualize model evaluation results.
+- Model Comparison 📊: View metrics for different model versions.
+- Model Performance Graphs 📉: Visualize model evaluation results.
 ##### reuslt ::
 ![alt text](image-1.png)
 ![alt text](image-2.png)
@@ -90,33 +90,33 @@ Automate the testing, building, and deployment of the project using GitHub Actio
 #### AWS EC2 Deployment 🌐
 Deploy the system on AWS EC2:
 
-Create an EC2 instance.
-Set up Docker on EC2.
-Push the Docker container to AWS ECR.
-Pull and run the Docker container on EC2.
+- Create an EC2 instance.
+- Set up Docker on EC2.
+- Push the Docker container to AWS ECR.
+- Pull and run the Docker container on EC2.
 
 
 #### 🔄 Data Flow Overview
-**Data Ingestion 💾**: Raw data is ingested from external sources and stored in MongoDB Atlas.
-**Data Validation ✅:** We ensure data is clean and perform checks for any data drift.
-**Data Transformation 🔄:** Features are extracted and processed for training.
-**Model Training 🧠:** The model is trained using processed data.
-**Model Evaluation 📊:** The model's performance is evaluated and tracked using DAGsHub.
-**Deployment 🚀:** The solution is containerized using Docker and deployed on AWS EC2.
-**User Interface 🖥️:** Streamlit allows users to interact with the model and view predictions.
-**Report Generation 📝:** Automated reports are generated using LLM Groq.
+- **Data Ingestion 💾**: Raw data is ingested from external sources and stored in MongoDB Atlas.
+- **Data Validation ✅:** We ensure data is clean and perform checks for any data drift.
+- **Data Transformation 🔄:** Features are extracted and processed for training.
+- **Model Training 🧠:** The model is trained using processed data.
+- **Model Evaluation 📊:** The model's performance is evaluated and tracked using DAGsHub.
+- **Deployment 🚀:** The solution is containerized using Docker and deployed on AWS EC2.
+- **User Interface 🖥️:** Streamlit allows users to interact with the model and view predictions.
+- **Report Generation 📝:** Automated reports are generated using LLM Groq.
 
 #### 🔧 Technologies Used
-**Python 🐍:** Programming language.
-**MongoDB Atlas 🌍:** Cloud-based database for data storage.
-**FastAPI ⚡:** For API creation and serving the model.
-**Streamlit 🎨:** Web-based UI for predictions and evaluation.
-**Docker 🐋:** Containerization for consistency across environments.
-**AWS EC2 & ECR ☁️:** Cloud infrastructure for deploying the system.
-**GitHub Actions 🔄:** Continuous integration and deployment.
-**DAGsHub 📈:** For tracking and comparing model performance.
-**LLM Groq 🧠:** For generating detailed reports.
-**Machine Learning 🤖:** For developing the phishing detection model using algorithms like Random Forest, SVM, and Neural Networks.
+- **Python 🐍:** Programming language.
+- **MongoDB Atlas 🌍:** Cloud-based database for data storage.
+- **FastAPI ⚡:** For API creation and serving the model.
+- **Streamlit 🎨:** Web-based UI for predictions and evaluation.
+- **Docker 🐋:** Containerization for consistency across environments.
+- **AWS EC2 & ECR ☁️:** Cloud infrastructure for deploying the system.
+- **GitHub Actions 🔄:** Continuous integration and deployment.
+- **DAGsHub 📈:** For tracking and comparing model performance.
+- **LLM Groq 🧠:** For generating detailed reports.
+- **Machine Learning 🤖:** For developing the phishing detection model using algorithms like Random Forest, SVM, and Neural Networks.
 
 #### 📜 License
 This project is licensed under the MIT License - see the LICENSE file for details.
