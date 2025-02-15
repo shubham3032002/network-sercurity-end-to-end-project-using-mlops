@@ -11,4 +11,6 @@ xgboost
 dagshub
 fastapi
 unicorn
+langchain
+langchain_groq
 -e .
