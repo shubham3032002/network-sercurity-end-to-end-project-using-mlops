@@ -9,11 +9,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv, find_dotenv
 import os
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
-from langchain_groq import ChatGroq
-load_dotenv(find_dotenv())
-GROQ_API = os.getenv('GROQ_API_KEY')
+from helper import cached_extract_features,generate_report
 
 # Load pre-trained model and preprocessing pipeline
 with open("final_model/preprocessor.pkl", "rb") as f:
@@ -336,68 +332,26 @@ def extract_features(url):
         st.error(f"Error extracting features: {e}")
         return None
 
-def generate_report(having_IP_Address, URL_Length, Shortining_Service, having_At_Symbol, double_slash_redirecting, Prefix_Suffix, having_Sub_Domain, SSLfinal_State, Domain_registeration_length, Favicon, port, HTTPS_token, Request_URL, URL_of_Anchor, Links_in_tags, SFH, Submitting_to_email, Abnormal_URL, Redirect, on_mouseover, RightClick, popUpWidnow, Iframe, age_of_domain, DNSRecord, web_traffic, Page_Rank, Google_Index, Links_pointing_to_page, Statistical_report):
-    """
-    Generates a detailed report on the features extracted from a given URL for phishing detection.
+import streamlit as st
+import pandas as pd
+import datetime
+from dotenv import load_dotenv, find_dotenv
+import os
+from application import extract_features, cached_extract_features, generate_report
 
-    Parameters:
-    All the extracted features as individual inputs.
+# Load environment variables
+load_dotenv(find_dotenv())
 
-    Returns:
-    A dictionary containing the feature analysis and a summary of the URL's safety status.
-    """
-    # Mapping feature scores to their meanings
-    feature_analysis = {
-        "having_IP_Address": ("IP Address Usage", "The URL uses an IP address instead of a domain name."),
-        "URL_Length": ("URL Length", "The length of the URL exceeds the safe threshold."),
-        "Shortining_Service": ("URL Shortening Service", "The URL uses a shortening service like bit.ly or tinyurl."),
-        "having_At_Symbol": ("Presence of '@' Symbol", "The URL contains an '@' symbol, indicating phishing behavior."),
-        "double_slash_redirecting": ("Double Slash Redirection", "The URL contains multiple '//' redirects."),
-        "Prefix_Suffix": ("Prefix/Suffix in Domain", "The domain contains a hyphen ('-'), common in phishing URLs."),
-        "having_Sub_Domain": ("Subdomain Count", "The URL contains excessive subdomains."),
-        "SSLfinal_State": ("SSL State", "The URL is either HTTP or has an invalid SSL certificate."),
-        "Domain_registeration_length": ("Domain Registration Length", "The domain registration duration is too short."),
-        "Favicon": ("Favicon", "The URL uses an abnormal or phishing favicon."),
-        "port": ("Port", "The URL uses unusual ports."),
-        "HTTPS_token": ("HTTPS Token in Domain", "The domain name contains 'https', which is suspicious."),
-        "Request_URL": ("External Resources in HTML", "The page loads excessive external resources."),
-        "URL_of_Anchor": ("Anchor Tags", "Anchor tags redirect to external or suspicious domains."),
-        "Links_in_tags": ("Links in Meta/Script/Link Tags", "Excessive links in meta, script, or link tags."),
-        "SFH": ("Server Form Handler (SFH)", "The form handler points to unknown or blank domains."),
-        "Submitting_to_email": ("Submitting to Email", "The URL allows form submission via email."),
-        "Abnormal_URL": ("Abnormal URL", "The URL does not match the actual domain."),
-        "Redirect": ("Redirection", "The URL redirects to another page."),
-        "on_mouseover": ("OnMouseOver Events", "The page uses onmouseover JavaScript events."),
-        "RightClick": ("Right-Click Disabled", "The page disables right-click functionality."),
-        "popUpWidnow": ("Popup Windows", "The page uses popup windows."),
-        "Iframe": ("Iframes", "The page contains iframe tags."),
-        "age_of_domain": ("Domain Age", "The domain age is less than six months."),
-        "DNSRecord": ("DNS Record", "The domain has invalid or missing DNS records."),
-        "web_traffic": ("Web Traffic", "The web traffic is abnormally low."),
-        "Page_Rank": ("Page Rank", "The page rank is too low."),
-        "Google_Index": ("Google Index", "The URL is not indexed in Google."),
-        "Links_pointing_to_page": ("Links Pointing to Page", "There are no links pointing to the page."),
-        "Statistical_report": ("Statistical Report", "The URL matches a known phishing or malicious pattern."),
-    }
-
-    
-    prompt = PromptTemplate.from_template(feature_analysis) 
-
-    try:
-        chat = ChatGroq(api_key=GROQ_API, model="llama3-70b-8192", temperature=0.5)
-        chain = LLMChain(llm=chat, prompt=prompt)
-        diet_plan = chain.run(features)
-        return diet_plan
-    except Exception as e:
-        raise Exception(f"An error occurred while generating the diet plan: {e}") 
-    
-# Page Configuration
+# Page Configuration (MUST BE THE FIRST STREAMLIT COMMAND)
 st.set_page_config(
     page_title="Phishing Website Detection",
     page_icon="🔒",
     layout="centered"
 )
 
+# Initialize session state for past analysis
+if "past_analysis" not in st.session_state:
+    st.session_state["past_analysis"] = []
 
 # App Title
 st.title("🔒 Phishing Website Detection App")
@@ -405,34 +359,6 @@ st.markdown("Enter a website URL below, and we'll check whether it's legitimate 
 
 # Input for Website URL
 url = st.text_input("🌐 Enter Website URL", placeholder="e.g., http://example.com")
-
-# Prediction Button
-if st.button("🚀 Detect Phishing"):
-    if url:
-        try:
-            # Simulate feature extraction
-            features = extract_features(url)  # Assuming this function exists
-            if features:
-                # Convert features to DataFrame
-                features_df = pd.DataFrame([features])
-                preprocessed_features = preprocess_pipeline.transform(features_df)  # Assuming preprocess_pipeline exists
-                prediction = model.predict(preprocessed_features)[0]  # Assuming model is loaded
-                prediction_proba = model.predict_proba(preprocessed_features)[0]  # Assuming model is loaded
-
-                # Display results
-                if prediction == 1:
-                    st.success("✅ The website is **Legitimate**.")
-                    st.metric(label="Confidence", value=f"{max(prediction_proba) * 100:.2f}%", delta="+")
-                else:
-                    st.error("🚨 The website is **Phishing**.")
-                    st.metric(label="Confidence", value=f"{max(prediction_proba) * 100:.2f}%", delta="-")
-            else:
-                st.warning("Unable to extract features from the URL.")
-        except Exception as e:
-            st.error(f"An error occurred: {e}")
-    else:
-        st.warning("Please enter a URL before detecting.")
-
 # Phishing Website Examples Section
 with st.expander("📋 **Examples of Phishing Websites**", expanded=False):
     st.markdown("""
@@ -445,8 +371,8 @@ with st.expander("📋 **Examples of Phishing Websites**", expanded=False):
         ("http://paypal.account-verify.com", "Fake PayPal account verification"),
         ("http://secure-update-payment.com", "Fake payment update page"),
         ("http://facebook-security-alert.com", "Fake Facebook security alert"),
-        ("http://amazon-refund-claim.com", "Fake Amazon refund page"),
-        ("https://att-108422-105888.square.site/", "Reported phishing site (Fishtank)"),
+        ("https://helium-00.pages.dev", "Reported phishing site (Fishtank)"),
+        ("https://treasure-wormhole.net", "Reported phishing site (Fishtank)"),
         ("https://att-new-345689090rt67ue4t3454svdf04b8fsd5a...", "Reported phishing site (Fishtank)"),
     ]
 
@@ -460,6 +386,46 @@ with st.expander("📋 **Examples of Phishing Websites**", expanded=False):
             <p style="margin: 0; font-size: 14px; color: #333;">{description}</p>
         </div>
         """, unsafe_allow_html=True)
+
+# Prediction Button
+if st.button("🚀 Detect Phishing"):
+    if url:
+        with st.spinner("Extracting features and generating report..."):
+            try:
+                # Simulate feature extraction
+                features = extract_features(url)  # Assuming this function exists
+                if features:
+                    # Convert features to DataFrame
+                    features_df = pd.DataFrame([features])
+                    preprocessed_features = preprocess_pipeline.transform(features_df)  # Assuming preprocess_pipeline exists
+                    prediction = model.predict(preprocessed_features)[0]  # Assuming model is loaded
+                    prediction_proba = model.predict_proba(preprocessed_features)[0]  # Assuming model is loaded
+
+                    # Display results
+                    if prediction == 1:
+                        st.success("✅ The website is **Legitimate**.")
+                        st.metric(label="Confidence", value=f"{max(prediction_proba) * 100:.2f}%", delta="+")
+                    else:
+                        st.error("🚨 The website is **Phishing**.")
+                        st.metric(label="Confidence", value=f"{max(prediction_proba) * 100:.2f}%", delta="-")
+
+                    # Generate and display the detailed report
+                    report, score = generate_report(features)
+                    st.markdown(report, unsafe_allow_html=True)
+
+                    # Add to session state for past analysis
+                    st.session_state["past_analysis"].append({
+                        "url": url,
+                        "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        "score": score,
+                    })
+                else:
+                    st.warning("Unable to extract features from the URL.")
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
+    else:
+        st.warning("Please enter a URL before detecting.")
+
 
 # Footer
 st.markdown("---")

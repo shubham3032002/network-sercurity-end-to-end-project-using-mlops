@@ -13,4 +13,5 @@ fastapi
 unicorn
 langchain
 langchain_groq
+fpdf
 -e .
