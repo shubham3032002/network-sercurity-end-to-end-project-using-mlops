@@ -4,15 +4,15 @@ This project aims to detect phishing websites using various machine learning tec
 .
 
 #### 💡 Key Features
-**ETL Pipeline 🧑‍💻:** Automates data extraction, transformation, and loading into MongoDB Atlas.
-**Data Validation ✅:** Ensures high-quality data input and checks for data drift.
-**Model Training 📊:** Train and test the phishing detection model using preprocessed data.
-**FastAPI Integration ⚡:** Create an API for training and testing the model.
-**Interactive UI with Streamlit 🎮:** Easy-to-use web interface for predictions.
-**DAGsHub 📈:** Track and compare model performance.
-**Dockerization 🐳:** Package the solution in containers for deployment on AWS EC2.
-**CI/CD with GitHub Actions 🔄:** Automate the build, test, and deployment process.
-**Report Generation 📑:** Generate reports using the LLM Groq model
+- **ETL Pipeline 🧑‍💻:** Automates data extraction, transformation, and loading into MongoDB Atlas.
+- **Data Validation ✅:** Ensures high-quality data input and checks for data drift.
+- **Model Training 📊:** Train and test the phishing detection model using preprocessed data.
+- **FastAPI Integration ⚡:** Create an API for training and testing the model.
+- **Interactive UI with Streamlit 🎮:** Easy-to-use web interface for predictions.
+- **DAGsHub 📈:** Track and compare model performance.
+- **Dockerization 🐳:** Package the solution in containers for deployment on AWS EC2.
+- **CI/CD with GitHub Actions 🔄:** Automate the build, test, and deployment process.
+- **Report Generation 📑:** Generate reports using the LLM Groq model
 #### columns/Features
   - having_IP_Address
   - URL_Length
