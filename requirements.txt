@@ -10,17 +10,15 @@ mlflow
 xgboost
 dagshub
 fastapi
-unicorn
+uvicorn
 langchain
-langchain_groq
+langchain-groq
 fpdf
-bs4
+beautifulsoup4  # Corrected package name
 requests
-re
 dnspython
 regex
 urllib3
-pickle
-python-dotenv
+pypickle
 datetime
 -e .
