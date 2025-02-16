@@ -343,12 +343,62 @@ from application import extract_features, cached_extract_features, generate_repo
 load_dotenv(find_dotenv())
 
 # Page Configuration (MUST BE THE FIRST STREAMLIT COMMAND)
+# Set the page configuration
+# Set the page configuration
+# Set the page configuration
 st.set_page_config(
-    page_title="Phishing Website Detection",
-    page_icon="🔒",
-    layout="centered"
+    page_title="WebGuard - Phishing Detection",
+    page_icon="🛡️",
+    layout="centered",
+    initial_sidebar_state="expanded"
 )
 
+# Add custom styling and header design
+st.markdown(
+    """
+    <style>
+    .header-container {
+        background-color: #2C3E50; 
+        padding: 40px 0; 
+        border-radius: 15px;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .header-title {
+        color: #E74C3C;
+        font-size: 45px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-subtitle {
+        color: #ECF0F1;
+        font-size: 20px;
+        font-weight: 500;
+        margin-top: 10px;
+        letter-spacing: 1px;
+    }
+
+    .main-content {
+        text-align: center;
+        font-size: 18px;
+        color: #34495E;
+        margin-top: 30px;
+    }
+
+    </style>
+    <div class="header-container">
+        <h1 class="header-title">🛡️ WebGuard</h1>
+        <p class="header-subtitle">Your First Line of Defense Against Phishing</p>
+    </div>
+    <div class="main-content">
+        <p>Welcome to WebGuard! Stay secure and detect phishing websites with ease.</p>
+    </div>
+    """,
+    unsafe_allow_html=True)
 # Initialize session state for past analysis
 if "past_analysis" not in st.session_state:
     st.session_state["past_analysis"] = []
@@ -358,7 +408,7 @@ st.title("🔒 Phishing Website Detection App")
 st.markdown("Enter a website URL below, and we'll check whether it's legitimate or phishing.")
 
 # Input for Website URL
-url = st.text_input("🌐 Enter Website URL", placeholder="e.g., http://example.com")
+url = st.text_input("🌐 Enter Website URL", placeholder="e.g., http://example.com").strip()
 # Phishing Website Examples Section
 with st.expander("📋 **Examples of Phishing Websites**", expanded=False):
     st.markdown("""
