@@ -14,4 +14,13 @@ unicorn
 langchain
 langchain_groq
 fpdf
+bs4
+requests
+re
+dnspython
+regex
+urllib3
+pickle
+python-dotenv
+datetime
 -e .
