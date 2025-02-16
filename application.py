@@ -342,10 +342,6 @@ from application import extract_features, cached_extract_features, generate_repo
 # Load environment variables
 load_dotenv(find_dotenv())
 
-# Page Configuration (MUST BE THE FIRST STREAMLIT COMMAND)
-# Set the page configuration
-# Set the page configuration
-# Set the page configuration
 st.set_page_config(
     page_title="WebGuard - Phishing Detection",
     page_icon="🛡️",
@@ -358,47 +354,62 @@ st.markdown(
     """
     <style>
     .header-container {
-        background-color: #2C3E50; 
-        padding: 40px 0; 
-        border-radius: 15px;
-        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(135deg, #2C3E50, #4A90E2); 
+        padding: 50px 20px; 
+        border-radius: 20px;
+        box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.3);
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
+        animation: fade-in 1.5s ease-out;
     }
 
     .header-title {
-        color: #E74C3C;
-        font-size: 45px;
+        color: #F1C40F;
+        font-size: 50px;
+        font-family: 'Arial', sans-serif;
         font-weight: 700;
-        letter-spacing: 2px;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        letter-spacing: 3px;
+        text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+        margin-bottom: 15px;
     }
 
     .header-subtitle {
         color: #ECF0F1;
-        font-size: 20px;
+        font-size: 22px;
+        font-family: 'Roboto', sans-serif;
         font-weight: 500;
-        margin-top: 10px;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
+        margin-top: 5px;
+        text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
     }
 
     .main-content {
         text-align: center;
         font-size: 18px;
         color: #34495E;
-        margin-top: 30px;
+        margin-top: 40px;
+        line-height: 1.6;
+        font-family: 'Roboto', sans-serif;
+        animation: fade-in 2s ease-out;
     }
 
+    /* Keyframe animations for smooth fade-in effect */
+    @keyframes fade-in {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
     </style>
     <div class="header-container">
         <h1 class="header-title">🛡️ WebGuard</h1>
         <p class="header-subtitle">Your First Line of Defense Against Phishing</p>
     </div>
     <div class="main-content">
-        <p>Welcome to WebGuard! Stay secure and detect phishing websites with ease.</p>
+        <p>Welcome to <b>WebGuard</b>! Stay secure and detect phishing websites with ease.</p>
+        <p>Empower your online safety with cutting-edge technology.</p>
     </div>
     """,
-    unsafe_allow_html=True)
+    unsafe_allow_html=True
+)
 # Initialize session state for past analysis
 if "past_analysis" not in st.session_state:
     st.session_state["past_analysis"] = []
